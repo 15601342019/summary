@@ -1,6 +1,6 @@
-### 1、[前端面试手写代码汇总]
-### 2、[es6学习总结]
-### 3、[react相关]
-### 4、[设计模式](https://github.com/15601342019/study_summaries/blob/master/4.%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F.md)
-### 5、[大厂面试题汇总]
-### 6、[TS学习点滴之路]
+### 1、面试-[前端面试手写代码汇总](https://github.com/15601342019/study_summaries/blob/master/%E9%9D%A2%E8%AF%95/1%E5%89%8D%E7%AB%AF%E9%9D%A2%E8%AF%95%E6%80%BB%E7%BB%93.md)
+### 2、面试-[大厂面试题汇总](https://github.com/15601342019/study_summaries/blob/master/%E9%9D%A2%E8%AF%95/2%E5%A4%A7%E5%8E%82%E9%9D%A2%E8%AF%95%E9%A2%98%E6%B1%87%E6%80%BB.md)
+### 3、js-[es6学习总结](https://github.com/15601342019/study_summaries/blob/master/JS/1.es6%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93.md)
+### 4、js-[设计模式](https://github.com/15601342019/study_summaries/blob/master/JS/2.%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F.md)
+### 5、react-[react相关](https://github.com/15601342019/study_summaries/blob/master/REACT/1%E3%80%81react.md)
+### 6、ts-[TS学习点滴之路](https://github.com/15601342019/study_summaries/blob/master/TS/ts%E6%80%BB%E7%BB%93.md)
