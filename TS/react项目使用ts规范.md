@@ -13,9 +13,9 @@ interface 命名规范：IXXX (例如：IStatusRecordModel)
 ```js
 export enum AccountBankQueryEffectsEnum {
   /**
-   * 账户行列表查询
+   * aa列表查询
    */
-  RouteQueryFacade = 'routeQueryFacade',
+  aaList = 'aaList',
 }
 ```
 #### 项目全局公共常量配置 
@@ -24,7 +24,7 @@ export enum AccountBankQueryEffectsEnum {
 /**
  * 项目路径前缀
  */
-export const pathPre = '/pagegw';
+export const pathPre = '/pageaaa';
 ```
 #### 配置接口返回类型
 #### types/utils.ts
