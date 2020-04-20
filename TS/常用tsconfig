@@ -1,3 +1,5 @@
+## ts.config配置
+```js
 {
   "compilerOptions": {
     "outDir": "build/dist",
@@ -32,3 +34,51 @@
     "tslint-config-prettier"
   ]
 }
+```
+## ts初学常用方法整理
+不会用ts的时候从来想不起来学习他，感觉没必要，我代码写的一样ok。一旦你用上以后，你就会发现他的好，保准你以后写项目离不开ts，ts就是这么有魅力，哈哈哈。。。
+
+从零开始学习ts确实是会是一段比较痛苦的过程，刚开始看文档，那么多总是觉得学起来艰难没有边际。等你稍微再项目上手以后就会发现，其实常用的方法也就那么一些，我把我觉得常用的一些方法整理一下。
+
+
+### 1、ts的所有基础类型
+boolean,number,string,数组，元祖，枚举，any,void,undefined,null,never,object,类型断言，
+### 2、变量声明
+var,let,const,数组解构，对象解构，函数声明，函数参数默认值，函数参数默认值，扩展运算符，这些功能都跟es6中的功能类似。
+### 3、 null 和 undefined 是其它类型（包括 void）的子类型，可以赋值给其它类型（如：数字类型
+默认情况下，编译器会提示错误，这是因为 tsconfig.json 里面有一个配置项是默认开启的。
+```js
+// tsconfig.json 
+
+{
+ 	 /* Strict Type-Checking Options */
+    "strict": true,                           /* Enable all strict type-checking options. */
+    // "noImplicitAny": true,                 /* Raise error on expressions and declarations with an implied 'any' type. */
+    // 对 null 类型检查，设置为 false 就不会报错了
+    // "strictNullChecks": true,              /* Enable strict null checks. */
+    // "strictFunctionTypes": true,           /* Enable strict checking of function types. */
+    // "strictBindCallApply": true,           /* Enable strict 'bind', 'call', and 'apply' methods on functions. */
+    // "strictPropertyInitialization": true,  /* Enable strict checking of property initialization in classes. */
+    // "noImplicitThis": true,                /* Raise error on 'this' expressions with an implied 'any' type. */
+    // "alwaysStrict": true,                  /* Parse in strict mode and emit "use strict" for each source file. */
+}
+```
+### 4、 never 和 void 的区别
+
+void 表示没有任何类型（可以被赋值为 null 和 undefined）。
+never 表示一个不包含值的类型，即表示永远不存在的值。
+拥有 void 返回值类型的函数能正常运行。拥有 never 返回值类型的函数无法正常返回，无法终止，或会抛出异常。
+### 5. 元祖越界问题
+```js
+let aaa: [string, number] = ['aaa', 5];
+// 添加时不会报错
+aaa.push(6);
+// 打印整个元祖不会报错
+console.log(aaa); // ['aaa',5,6];
+// 打印添加的元素时会报错
+console.log(aaa[2]); // error
+```
+### 枚举和其使用场景
+
+
+
