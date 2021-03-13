@@ -5,3 +5,4 @@
 ### 5、react-[react相关](https://github.com/15601342019/study_summaries/blob/master/REACT/1%E3%80%81react.md)
 ### 6、ts-[TS学习点滴之路](https://github.com/15601342019/study_summaries/blob/master/TS/ts%E6%80%BB%E7%BB%93.md)
 ### 7、code-[开发常用方法及示例](https://github.com/15601342019/study_summaries/blob/master/CODE/%E5%BC%80%E5%8F%91%E5%B8%B8%E7%94%A8%E6%96%B9%E6%B3%95%E5%8F%8A%E7%A4%BA%E4%BE%8B.md)
+### 8、demo-[小练习](https://github.com/15601342019/study_summaries/blob/master/CODE/%E5%BC%80%E5%8F%91%E5%B8%B8%E7%94%A8%E6%96%B9%E6%B3%95%E5%8F%8A%E7%A4%BA%E4%BE%8B.md)
