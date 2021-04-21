@@ -32,7 +32,7 @@
 
 * 工作原理就是：在启动的时候，会询问一些预设的问题，然后将回答的结果与模板文件生成项目结构
 
-（1）创建目录 ZYJ-DEMO
+（1）创建目录 TEST-DEMO
 
 （2）创建 package.json
 ```js
@@ -41,13 +41,85 @@ yarn init
 （3）在package.json中添加bin字段，指定cli文件的入口文件: “bin”:"cli.js"
 ```js
 {
-  "name": "zyj-demo",
+  "name": "test-demo",
   "version": "1.0.0",
   "bin":"cli.js",
   "main": "index.js",
   "license": "MIT"
 }
 ```
+（4）安装所需依赖
+```js
+ yarn add inquirer   //询问
+ yarn add ejs  //添加模板引擎
+```
+（5）创建cli.js文件
+```js
+#!/usr/bin/env node
+// NODE CLI 应用入口文件必须要有这样的文件名
+// console.log('cli,working~~~')  //测试
+
+/**
+ * 脚手架的工作流程
+ * 1、通过命令行交互询问用户问题
+ * 2、根据用户回答的结果生成文件
+ */
+const path = require('path')
+const inquirer = require('inquirer')
+const fs = require('fs')
+const ejs = require('ejs')
+
+inquirer.prompt([
+     {
+         type: 'input',
+         name: 'name',
+         message: 'Project name?'
+     }
+ ]).then(anwsers => {
+   //  console.log(anwsers)  // { name: 'myName' }
+   // 根据用户回答的结果生成文件
+
+    //模板目录
+    const temDir = path.join(__dirname,'templates')
+    //目标目录
+    const destDir = process.cwd()
+    fs.readdir(temDir,(err,files)=>{
+        if (err) throw err
+        files.forEach(file => {
+            // console.log(file)
+            //通过模板引擎渲染文件
+            ejs.renderFile(path.join(temDir,file),anwsers,(err,result) => {
+                if(err) throw err
+                fs.writeFileSync(path.join(destDir,file),result)
+            })
+        });
+    })
+ })
+```
+（6）templates/index.html
+```js
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>name</title>
+</head>
+<body>
+</body>
+</html>
+```
+（7）yarn link关联到全局变量
+```js
+yarn link
+```
+（8）执行测试
+```js
+mkdir test  //创建测试文件夹
+cd test    //切换文件夹
+TEST-DEMO   //执行脚手架
+```
+
 
 　
 
