@@ -29,4 +29,11 @@ function Heart(props) {
         </div>
     )
 }
-TinyReact.render(<Heart title='12423454565 '/>, root)
+// TinyReact.render(<Heart title='12423454565 '/>, root)
+
+class Alert extends TinyReact.component {
+    render() {
+        return <div>Hello React{this.props.name}{this.props.name}</div>
+    }
+}
+TinyReact.render(<Alert name='张珊' age='20' />, root)

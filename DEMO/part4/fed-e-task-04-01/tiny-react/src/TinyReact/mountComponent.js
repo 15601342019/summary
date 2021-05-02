@@ -18,7 +18,7 @@ export default function mountComponent(virtualDOM, container,oldDOM) {
     } else {
         // 类组件
         nextVirtualDOM = buildClassComponent(virtualDOM)
-        component = nextVirtualDOM.component
+        // component = nextVirtualDOM.component
     }
     // 对nextVirtualDOM继续判断，如果是组件，继续使用mountComponent处理，如果不是，使用mountNativeElement处理
     if (isFunction(nextVirtualDOM)) {
@@ -33,8 +33,11 @@ const buildFunctionComponent = (virtualDOM) => {
     return virtualDOM.type(virtualDOM.props || {});
 }
 function buildClassComponent(virtualDOM) {
+    // 类组件存储的是构造函数，所以我们可以直接new 虚拟dom的type，并把props参数传递进去
+    // 使用component接收获取到的 组件实例对象
     const component = new virtualDOM.type(virtualDOM.props || {})
-    const nextVirtualDOM = component.render()
+    // 调用组件实例对象上的render方法，即可获取到该组件的virtualDOM
+    const nextVirtualDOM = component.render();
     nextVirtualDOM.component = component
     return nextVirtualDOM
 }
