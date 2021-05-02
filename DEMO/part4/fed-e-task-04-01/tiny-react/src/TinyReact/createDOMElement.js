@@ -1,4 +1,6 @@
 import mountElement from './mountElement';
+import updateNodeElement from './updateNodeElement';
+
 export default function createDOMElement(virtualDOM) {
     // 此方法真正处理将virtualDOM转换为正式的dom对象
     // 处理时 先判断元素节点还是文本节点
@@ -10,6 +12,8 @@ export default function createDOMElement(virtualDOM) {
     } else {
         // 元素节点
         newElement = document.createElement(virtualDOM.type)
+        // 如果是元素节点，为节点添加属性
+        updateNodeElement(newElement, virtualDOM)
     }
     // 以上只是创建了第一个dom节点，virtualDOM还有子元素，需要递归创建子元素节点
     if (virtualDOM.children) {
