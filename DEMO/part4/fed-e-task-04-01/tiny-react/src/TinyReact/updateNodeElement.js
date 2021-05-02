@@ -13,7 +13,7 @@ export default function updateNodeElement(newElement, virtualDOM) {
         } else if (propName === 'value' || propName === 'checked') {
             // 处理props key为value和checked的情况，因为这两种情况不能直接使用setAttribute方法
             newElement[propName] = newPropsValue
-        } else if(propName !=='children') {
+        } else if (propName !== 'children') {
             if (propName === 'className') {
                 newElement.setAttribute('class', newPropsValue)
             } else {

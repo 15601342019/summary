@@ -17,7 +17,16 @@ const virtualDOM = (
         <input type="text" value="13" />
     </div>
 )
-console.log(virtualDOM);
-TinyReact.render(virtualDOM, root)
-
-
+// TinyReact.render(virtualDOM, root)
+function Demo() {
+    return <div>Hello</div>
+}
+function Heart(props) {
+    return (
+        <div>
+            {props.title}
+        &hearts; <Demo />
+        </div>
+    )
+}
+TinyReact.render(<Heart title='12423454565 '/>, root)
