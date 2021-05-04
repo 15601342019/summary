@@ -1,6 +1,7 @@
 import mountElement from './mountElement';
 import updateTextNode from './updateTextNode';
 import updateNodeElement from './updateNodeElement';
+import createDOMElement from './createDOMElement';
 
 export default function diff(virtualDOM, container, oldDOM) {
     // 定义一个oldVirtualDOM 变量存储
@@ -9,6 +10,17 @@ export default function diff(virtualDOM, container, oldDOM) {
     if (!oldDOM) {
         // 没有oldDOM 说明直接渲染即可，使用mountElement方法直接渲染
         mountElement(virtualDOM, container)
+    } else if (oldVirtualDOM &&
+        // 情况2： 有oldDOM 并且元素类型不相同
+        virtualDOM.type !== oldVirtualDOM.type &&
+        // 并且节点的类型不是组件 因为组件要单独处理 的情况
+        typeof virtualDOM.type !== "function") {
+
+        // 使用新的 virtualDOM 对象生成真实 DOM 对象
+        const newElement = createDOMElement(virtualDOM)
+        // 使用新的 DOM 对象替换旧的 DOM 对象
+        oldDOM.parentNode.replaceChild(newElement, oldDOM)
+
     } else if (oldVirtualDOM && virtualDOM.type === oldVirtualDOM.type) {
         // 情况1： 有oldDOM 并且元素类型相同的情况
         // 情况1.1 如果是文本节点，只需要更新文本内容

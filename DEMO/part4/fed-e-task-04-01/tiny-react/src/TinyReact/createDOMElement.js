@@ -1,8 +1,11 @@
 import mountElement from './mountElement';
 import updateNodeElement from './updateNodeElement';
-
+/**
+ * 将virtualDOM转换为真实的dom对象
+ * @param {*} virtualDOM
+ * @returns domNode
+ */
 export default function createDOMElement(virtualDOM) {
-    // 此方法真正处理将virtualDOM转换为正式的dom对象
     // 处理时 先判断元素节点还是文本节点
     let newElement = null
     if (virtualDOM.type === 'text') {
