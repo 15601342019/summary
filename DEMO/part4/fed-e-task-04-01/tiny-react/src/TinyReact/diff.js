@@ -15,7 +15,7 @@ export default function diff(virtualDOM, container, oldDOM) {
         virtualDOM.type !== oldVirtualDOM.type &&
         // 并且节点的类型不是组件 因为组件要单独处理 的情况
         typeof virtualDOM.type !== "function") {
-
+        // 不需要对比
         // 使用新的 virtualDOM 对象生成真实 DOM 对象
         const newElement = createDOMElement(virtualDOM)
         // 使用新的 DOM 对象替换旧的 DOM 对象
