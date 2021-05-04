@@ -2,6 +2,7 @@ import mountElement from './mountElement';
 import updateTextNode from './updateTextNode';
 import updateNodeElement from './updateNodeElement';
 import createDOMElement from './createDOMElement';
+import unmountNode from './unmountNode';
 
 export default function diff(virtualDOM, container, oldDOM) {
     // 定义一个oldVirtualDOM 变量存储
@@ -32,11 +33,29 @@ export default function diff(virtualDOM, container, oldDOM) {
             // 更新元素节点属性
             updateNodeElement(oldDOM, virtualDOM, oldVirtualDOM)
         }
-
-        // 以上只是更新了root下的第一个dom元素，后面还要处理虚拟dom的children
+        // 对比子节点
+        // 以上只是更新了root下的第一个dom元素，后面还要对比虚拟dom的children
         virtualDOM?.children?.forEach((child, i) => {
             diff(child, oldDOM, oldDOM.childNodes[i])
         })
+
+        // 情况1.3 删除节点
+        // 当oldVirtualDOM比virtualDOM children属性length大的时候，说明有节点需要删除
+        // 获取旧节点的子节点
+        let oldChildNodes = oldDOM.childNodes
+        // 判断旧节点的数量
+        if (oldChildNodes?.length > virtualDOM?.children?.length) {
+            // 有节点需要被删除
+            // oldChildNodes从后往前删除
+            // 循环删除条件：oldChildNodes.length - 1 > virtualDOM.children.length - 1
+            for (
+                let i = oldChildNodes.length - 1;
+                i > virtualDOM.children.length - 1;
+                i--
+            ) {
+                unmountNode(oldChildNodes[i])
+            }
+        }
     }
 
 }
