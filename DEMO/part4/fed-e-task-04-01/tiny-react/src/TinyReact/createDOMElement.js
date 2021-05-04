@@ -15,6 +15,8 @@ export default function createDOMElement(virtualDOM) {
         // 如果是元素节点，为节点添加属性
         updateNodeElement(newElement, virtualDOM)
     }
+    // 创建真是dom节点时要把_virtualDOM属性添加到dom元素上，这样后续对比的时候就可以使用oldDOM._virtualDOM与最新的virtualDOM进行对比
+    newElement._virtualDOM = virtualDOM
     // 以上只是创建了第一个dom节点，virtualDOM还有子元素，需要递归创建子元素节点
     if (virtualDOM.children) {
         virtualDOM.children.forEach(child => {

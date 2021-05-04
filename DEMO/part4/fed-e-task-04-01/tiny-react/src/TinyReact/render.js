@@ -1,6 +1,15 @@
-import diff from './diff';
-export default function render(virtualDOM, container, oldDOM) {
+// import diff from './diff';
+// export default function render(virtualDOM, container, oldDOM) {
 
-    diff(virtualDOM, container, oldDOM)
+//     diff(virtualDOM, container, oldDOM)
 
+// }
+import diff from "./diff"
+
+export default function render(
+  virtualDOM,
+  container,
+  oldDOM = container.firstChild
+) {
+  diff(virtualDOM, container, oldDOM)
 }
