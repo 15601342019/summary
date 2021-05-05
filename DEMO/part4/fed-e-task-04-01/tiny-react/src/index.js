@@ -74,15 +74,15 @@ class Alert extends TinyReact.Component {
         // 这里使用的this.setState，实际上是父类Component中的方法
         this.setState({ title: "Changed Title" })
     }
-    // componentWillReceiveProps(nextProps) {
-    //     console.log("componentWillReceiveProps")
-    // }
-    // componentWillUpdate() {
-    //     console.log("componentWillUpdate")
-    // }
-    // componentDidUpdate() {
-    //     console.log("componentDidUpdate")
-    // }
+    componentWillReceiveProps(nextProps) {
+        console.log("componentWillReceiveProps")
+    }
+    componentWillUpdate() {
+        console.log("componentWillUpdate")
+    }
+    componentDidUpdate() {
+        console.log("componentDidUpdate")
+    }
     render() {
         return (
             <div>
