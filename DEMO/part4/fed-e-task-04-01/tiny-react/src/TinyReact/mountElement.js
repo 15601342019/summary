@@ -3,16 +3,16 @@ import mountNativeElement from './mountNativeElement';
 import mountComponent from './mountComponent';
 import isFunction from './isFunction';
 
-export default function mountElement(virtualDOM, container) {
+export default function mountElement(virtualDOM, container, oldDOM) {
     //渲染元素分 Component 和 NativeElement 两种形式
     // Component type类型为函数（不管是函数组件还是class组件）
     // NativeElement type类型为字符串
     if (isFunction(virtualDOM)) {
         // Component
-        mountComponent(virtualDOM, container)
+        mountComponent(virtualDOM, container, oldDOM)
     } else {
         // NativeElement
-        mountNativeElement(virtualDOM, container)
+        mountNativeElement(virtualDOM, container, oldDOM)
     }
 }
 

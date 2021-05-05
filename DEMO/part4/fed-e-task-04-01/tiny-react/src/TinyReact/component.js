@@ -46,6 +46,23 @@ export default class Component {
     getDOM() {
         return this._dom
     }
+
+    // 添加生命周期函数
+
+    componentWillMount() { }
+    componentDidMount() { }
+    componentWillReceiveProps(nextProps) { }
+    shouldComponentUpdate(nextProps, nextState) {
+        return nextProps != this.props || nextState != this.state
+    }
+    componentWillUpdate(nextProps, nextState) { }
+    componentDidUpdate(prevProps, preState) { }
+    componentWillUnmount() { }
+
+    // 更新props的方法
+    updateProps(props) {
+        this.props = props
+    }
 }
 
 
