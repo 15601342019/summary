@@ -1,8 +1,8 @@
 import creatElement from './createElement';
 import render from './render';
-import component from './component';
+import Component from './Component';
 export default {
     creatElement,
     render,
-    component,
-}
+    Component,
+} 

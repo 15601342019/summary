@@ -10,7 +10,7 @@ export default function createDOMElement(virtualDOM) {
     let newElement = null
     if (virtualDOM.type === 'text') {
         // 文本节点
-        console.log(virtualDOM)
+        // console.log(virtualDOM)
         newElement = document.createTextNode(virtualDOM?.props?.textContent)
     } else {
         // 元素节点
