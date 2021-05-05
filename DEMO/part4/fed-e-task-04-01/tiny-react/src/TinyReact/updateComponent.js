@@ -16,11 +16,11 @@ export default function updateComponent(
     let prevProps = oldComponent.props
     // 生命周期函数
     oldComponent.componentWillUpdate(virtualDOM.props)
-    // 更新组件的 props 属性 updateProps 方法定义在 Component 类型
+    // 更新组件实例对象的 props 属性,  updateProps 方法定义在 Component 类型
     oldComponent.updateProps(virtualDOM.props)
     // 因为组件的 props 已经更新 所以调用 render 方法获取最新的 Virtual DOM
     const nextVirtualDOM = oldComponent.render()
-    // 将组件实例对象挂载到 Virtual DOM 身上
+    // 将组件实例对象更新后的实例挂载到 Virtual DOM 身上
     nextVirtualDOM.component = oldComponent
     // 调用diff方法更新视图
     diff(nextVirtualDOM, container, oldDOM)
