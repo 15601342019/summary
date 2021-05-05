@@ -27,5 +27,11 @@ export default function createDOMElement(virtualDOM) {
             mountElement(child, newElement)
         });
     }
+    // 实现思路是在创建节点时判断其 Virtual DOM 对象中是否有 ref 属性，
+    // 如果有就调用 ref 属性中所存储的方法并且将创建出来的DOM对象作为参数传递给 ref 方法，
+    // 这样在渲染组件节点的时候就可以拿到元素对象并将元素对象存储为组件属性了。
+    if (virtualDOM.props && virtualDOM.props.ref) {
+        virtualDOM.props.ref(newElement)
+      }
     return newElement;
 }

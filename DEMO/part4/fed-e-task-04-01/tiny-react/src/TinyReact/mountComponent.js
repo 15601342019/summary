@@ -13,12 +13,14 @@ export default function mountComponent(virtualDOM, container, oldDOM) {
     // 判断方法：看当前组件的原型对象上有没有render方法
     // 定义一个变量nextVirtualDOM 
     let nextVirtualDOM = null;
+    let component = null;
     if (isFunctionComponent(virtualDOM)) {
         nextVirtualDOM = buildFunctionComponent(virtualDOM)
     } else {
         // 类组件
         nextVirtualDOM = buildClassComponent(virtualDOM)
-        // component = nextVirtualDOM.component
+        // 获取组件实例对象
+        component = nextVirtualDOM.component
     }
     // 对nextVirtualDOM继续判断，如果是组件，继续使用mountComponent处理，如果不是，使用mountNativeElement处理
     if (isFunction(nextVirtualDOM)) {
@@ -26,7 +28,15 @@ export default function mountComponent(virtualDOM, container, oldDOM) {
     } else {
         mountNativeElement(nextVirtualDOM, container, oldDOM)
     }
-
+    // 如果组件实例对象存在的话
+    if (component) {
+        // 判断组件实例对象身上是否有 props 属性 props 属性中是否有 ref 属性
+        if (component.props && component.props.ref) {
+            // 调用 ref 方法并传递组件实例对象
+            component.props.ref(component)
+        }
+        component.componentDidMount()
+    }
 }
 const buildFunctionComponent = (virtualDOM) => {
     // 函数组件存储的就是函数本身，所以我们直接调用当前的组件即可得到虚拟dom
