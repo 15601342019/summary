@@ -13,7 +13,16 @@
 | babel.config.json        | babel 配置文件          |
 | package.json             | 项目工程文件            |
 
-创建 package.json 文件：`npm init -y`
+创建 package.json 文件：`npm init -y`  
+注：我们是不能直接运行src下文件的，所以我们要对src下的文件使用webpack进行打包输出到dist目录，我们实际运行的就是dist输出的文件  
+  同理：服务器端的代码也不能直接运行，也需要使用webpack进行打包输出到build目录，  
+  服务端的代码目的？
+  webpack.config.client.js和webpack.config.server.js名称是固定的吗？平时创建的项目都叫webpack.config.js
+  问题:Fiber这个项目为什么要配置server.js,tiny-react就不需要写node代码，两个项目区别又是什么呢？
+  问题：.babelrc.js中process.env.BABEL_ENV === "development"，process.env.BABEL_ENV是如何区分项目中dev、sit、pro环境的
+  
+
+
 
 #### 1.2 安装项目依赖
 
@@ -34,6 +43,10 @@
 | npm-run-all            | 命令行工具，可以同时执行多个命令                   |
 | express                | 基于 node 平台的 web 开发框架                      |
 
+问题：1、没有@babel/preset-react插件，就不能对jsx语法进行解析？  
+    2、babel-loader 可以让webpack使用loader？？  
+    3、npm-run-all ，该项目需要同时打包和运行 客户端和服务端代码，npm-run-all 可以同时打包运行多个服务命令
+    4、express开启一个webpack服务器，我们平时用的脚手架里面并没有安装express不也开启了webpack服务吗？
 #### 1.3 环境配置
 
 ##### 1.3.1 创建 web 服务器
