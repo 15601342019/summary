@@ -125,7 +125,7 @@ TEST-DEMO   //执行脚手架
 
 **2、尝试使用 Gulp 完成项目的自动化构建**  ( **[先要作的事情](./notes/下载包是出错的解决方式.md)** )
 
-(html,css,等素材已经放到code/pages-boilerplate目录)
+(html,css,等素材已经放到code/pages-boilerplate目录) gulp 编译过程直接卸载了pages-boilerplate/gulpfile.js文件中
 
 　
 
