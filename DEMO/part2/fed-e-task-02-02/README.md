@@ -53,6 +53,8 @@ module.exports = {
     },
 };
 ```
+4. 不推荐使用内联方式配置loader 
+
 
 * Plugin：
 1. 由于插件可以携带参数/选项，你必须在 webpack 配置中，向 plugins 属性传入一个 new 实例。
@@ -90,9 +92,10 @@ module.exports = {
 ##### 原理区别
 
 * Loader:
-1. loader 遵循标准 模块解析 规则。模块解析是一个模块可以作为另一个模块的依赖模块，然后被后者引用。webpack 使用 enhanced-resolve 来解析文件路径。模块解析详解：https://webpack.docschina.org/concepts/module-resolution/
-2. 多数情况下，loader 将从 模块路径 加载（通常是从 npm install, node_modules 中进行加载）。
-3. loader 支持链式调用。链中的每个 loader 会将转换应用在已处理过的资源上。一组链式的 loader 将按照相反的顺序执行。链中的第一个 loader 将其结果（也就是应用过转换后的资源）传递给下一个 loader，依此类推。最后，链中的最后一个 loader，返回 webpack 所期望的 JavaScript。
+1. loader是一个将待转换资源作为参数，最后将转换后的资源返回出去的函数；
+2. loader 遵循标准 模块解析 规则。模块解析是一个模块可以作为另一个模块的依赖模块，然后被后者引用。webpack 使用 enhanced-resolve 来解析文件路径。模块解析详解：https://webpack.docschina.org/concepts/module-resolution/
+3. 多数情况下，loader 将从 模块路径 加载（通常是从 npm install, node_modules 中进行加载）。
+4. loader 支持链式调用。链中的每个 loader 会将转换应用在已处理过的资源上。一组链式的 loader 将按照相反的顺序执行。链中的第一个 loader 将其结果（也就是应用过转换后的资源）传递给下一个 loader，依此类推。最后，链中的最后一个 loader，返回 webpack 所期望的 JavaScript。
 * Plugin：
 1. webpack 插件是一个具有 apply 方法的 JavaScript 对象。apply 方法会被 webpack compiler 调用，并且在 整个 编译生命周期都可以访问 compiler 对象。
 2. ConsoleLogOnBuildWebpackPlugin.js
