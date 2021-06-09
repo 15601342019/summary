@@ -28,7 +28,7 @@
 * Loader: loader 用于在编译过程（compilation process）中遇到非js和Json文件类型事，将这些文件转通通换成js模块。
 * Plugin：插件可以用于编译前中后执行范围更广的任务，大大扩展 webpack 能力。包括打包优化，资源管理，注入环境变量。
 
-#### 地位区别
+##### 地位区别
 * Loader:仅仅是用于对模块的源代码进行转换
 * Plugin:插件是 webpack 的 支柱 功能,插件目的在于解决 loader 无法实现的其他事
 
