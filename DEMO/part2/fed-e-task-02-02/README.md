@@ -2,6 +2,14 @@
 
 #### 1、Webpack 的构建流程主要有哪些环节？如果可以请尽可能详尽的描述 Webpack 打包的整个过程。
 
+* 初始化参数配置：根据用户在命令窗口输入的参数以及 webpack.config.js 文件的配置，得到最终的配置。
+* 开始编译：根据上一步得到的最终配置，初始化得到一个 compiler 对象，注册所有的插件 plugins，插件开始监听 webpack 构建过程的生命周期的环节（事件），不同的环节会有相应的处理，然后开始执行编译。
+* 确定入口：根据 webpack.config.js 文件中的 entry 入口，开始解析文件构建 AST 语法树，找出依赖，递归下去。
+* 编译模块：递归过程中，根据文件类型和 loader 配置，调用相应的 loader 对不同的文件做不同的转换处理，再找出该模块依赖的模块，然后递归本步骤，直到项目中依赖的所有模块都经过了本步骤的编译处理。
+* 编译过程中，有一系列的插件在不同的环节做相应的事情，比如 UglifyPlugin 会在 loader 转换递归完对结果使用 UglifyJs 压缩覆盖之前的结果；再比如 clean-webpack-plugin ，会在结果输出之前清除 dist 目录等等。
+* 完成编译并输出：递归结束后，得到每个文件结果，包含转换后的模块以及他们之间的依赖关系，根据 entry 以及 output 等配置生成代码块 chunk。
+* 打包完成：根据 output 输出所有的 chunk 到相应的文件目录。
+
 　
 
 　
@@ -10,11 +18,105 @@
 
 #### 2、Loader 和 Plugin 有哪些不同？请描述一下开发 Loader 和 Plugin 的思路。
 
-　
+##### 概念区别
 
-　
+* Loader: webpack 只能理解 JavaScript 和 JSON 文件，这是 webpack 开箱可用的自带能力。loader 让 webpack 能够去处理其他类型的文件，比如图片，比如css，比如HTML等乐心的文件，并将它们转换为有效 模块，以供应用程序使用，以及被添加到依赖图中。
+* Plugin：插件是 webpack 生态的关键部分， 它为社区用户提供了一种强有力的方式来直接触及 webpack 的编译过程(compilation process)。 插件能够 hook 到每一个编译(compilation)中发出的关键事件中。 在编译的每个阶段中，插件都拥有对 compiler 对象的完全访问能力， 并且在合适的时机，还可以访问当前的 compilation 对象。
 
-　
+##### 用途区别
+
+* Loader: loader 用于在编译过程（compilation process）中遇到非js和Json文件类型事，将这些文件转通通换成js模块。
+* Plugin：插件可以用于编译前中后执行范围更广的任务，大大扩展 webpack 能力。包括打包优化，资源管理，注入环境变量。
+
+#### 地位区别
+* Loader:仅仅是用于对模块的源代码进行转换
+* Plugin:插件是 webpack 的 支柱 功能,插件目的在于解决 loader 无法实现的其他事
+
+##### 配置方式区别
+
+* Loader: loader有两个属性：
+1. test 属性，识别出哪些文件会被转换，一般通过正则和通配符的形式进行匹配。
+2. use 属性，定义出在进行转换时，应该使用哪个 loader。执行顺序从又到左
+3. webpack.config.js
+```js
+const path = require('path');
+
+module.exports = {
+    output: {
+        filename: 'my-first-webpack.bundle.js',
+    },
+    module: {
+        rules: [{
+            test: /\.txt$/,
+            use: 'raw-loader' // 以文本的形式解析导入的文件
+        }],
+    },
+};
+```
+
+* Plugin：
+1. 由于插件可以携带参数/选项，你必须在 webpack 配置中，向 plugins 属性传入一个 new 实例。
+
+取决于你的 webpack 用法，对应有多种使用插件的方式。
+
+
+2. webpack.config.js
+
+```js
+const HtmlWebpackPlugin = require('html-webpack-plugin'); // 通过 npm 安装
+const webpack = require('webpack'); // 访问内置的插件
+const path = require('path');
+
+module.exports = {
+    entry: './path/to/my/entry/file.js',
+    output: {
+        filename: 'my-first-webpack.bundle.js',
+        path: path.resolve(__dirname, 'dist'),
+    },
+    module: {
+        rules: [{
+            test: /\.(js|jsx)$/,
+            use: 'babel-loader',
+        }, ],
+    },
+    plugins: [
+        new webpack.ProgressPlugin(),
+        new HtmlWebpackPlugin({
+            template: './src/index.html'
+        }),
+    ],
+};
+```
+##### 原理区别
+
+* Loader:
+1. loader 遵循标准 模块解析 规则。模块解析是一个模块可以作为另一个模块的依赖模块，然后被后者引用。webpack 使用 enhanced-resolve 来解析文件路径。模块解析详解：https://webpack.docschina.org/concepts/module-resolution/
+2. 多数情况下，loader 将从 模块路径 加载（通常是从 npm install, node_modules 中进行加载）。
+3. loader 支持链式调用。链中的每个 loader 会将转换应用在已处理过的资源上。一组链式的 loader 将按照相反的顺序执行。链中的第一个 loader 将其结果（也就是应用过转换后的资源）传递给下一个 loader，依此类推。最后，链中的最后一个 loader，返回 webpack 所期望的 JavaScript。
+* Plugin：
+1. webpack 插件是一个具有 apply 方法的 JavaScript 对象。apply 方法会被 webpack compiler 调用，并且在 整个 编译生命周期都可以访问 compiler 对象。
+2. ConsoleLogOnBuildWebpackPlugin.js
+```js
+const pluginName = 'ConsoleLogOnBuildWebpackPlugin';
+
+class ConsoleLogOnBuildWebpackPlugin {
+  apply(compiler) {
+    compiler.hooks.run.tap(pluginName, (compilation) => {
+      console.log('webpack 构建过程开始！');
+    });
+  }
+}
+
+module.exports = ConsoleLogOnBuildWebpackPlugin;
+```
+compiler hook 的 tap 方法的第一个参数，应该是驼峰式命名的插件名称。建议为此使用一个常量，以便它可以在所有 hook 中重复使用。
+
+
+##### Loader 开发思路
+*  loader 模块导出为一个函数，并且编写为 Node.js 兼容的 JavaScript。通常使用 npm 进行管理 loader，但是也可以将应用程序中的文件作为自定义 loader。按照约定，loader 通常被命名为 xxx-loader（例如 json-loader）
+##### Plugin 开发思路
+
+webpack在编译前（compiler），编译中（compiler，compilation，ContextModuleFactory，JavascriptParser，NormalModuleFactory），和编译后（compiler，boundle）每个对象上都埋下了很多钩子，每个钩子上包括
 
 # 二、编程题
 
@@ -27,8 +129,6 @@
 3. 有所不同的是这里我移除掉了 vue-cli-service（包含 webpack 等工具的黑盒工具）
 4. 这里的要求就是直接使用 webpack 以及你所了解的周边工具、Loader、Plugin 还原这个项目的打包任务
 5. 尽可能的使用上所有你了解到的功能和特性
-
-
 
 **提示：(开始前必看)**
 
@@ -47,12 +147,10 @@ vue 文件中 使用 style-loader 即可
 
 其它问题, 可先到 https://www.npmjs.com/ 上搜索查看相应包的最新版本的配置示例, 可以解决大部分问题.
 
-
-
 #### 作业要求
 
 本次作业中的编程题要求大家完成相应代码后
 
-- 提交一个项目说明文档，要求思路流程清晰。
-- 或者简单录制一个小视频介绍一下实现思路，并演示一下相关功能。
-- 最终将录制的视频或说明文档和代码统一提交至作业仓库。
+* 提交一个项目说明文档，要求思路流程清晰。
+* 或者简单录制一个小视频介绍一下实现思路，并演示一下相关功能。
+* 最终将录制的视频或说明文档和代码统一提交至作业仓库。
