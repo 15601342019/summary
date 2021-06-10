@@ -7,35 +7,35 @@
   // 下面的这个方法就是 webpack 当中自定义的，它的核心作用就是返回模块的 exports 
   function __webpack_require__(moduleId) {
 
-    // Check if module is in cache
+    // Check if module is in cache 判断是否存在缓存
     if (installedModules[moduleId]) {
       return installedModules[moduleId].exports;
     }
-    // Create a new module (and put it into the cache)
+    // Create a new module (and put it into the cache) 如果没有缓存，就新创建一个module
     var module = installedModules[moduleId] = {
       i: moduleId,
       l: false,
       exports: {}
     };
 
-    // Execute the module function
+    // Execute the module function 调用模块定义的每一个值
     modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
 
-    // Flag the module as loaded
+    // Flag the module as loaded 标记当前模块是否已加载
     module.l = true;
 
-    // Return the exports of the module
+    // Return the exports of the module 将module.exports导出
     return module.exports;
   }
 
 
-  // expose the modules object (__webpack_modules__)
+  // expose the modules object (__webpack_modules__) 将传入的参数挂载到__webpack_require__.m上
   __webpack_require__.m = modules;
 
-  // expose the module cache
+  // expose the module cache 将已加载的module挂载到 __webpack_require__.c 上
   __webpack_require__.c = installedModules;
 
-  // define getter function for harmony exports
+  // define getter function for harmony exports 给exports对象的name（传入的值不一定是name）属性设置getter方法
   __webpack_require__.d = function (exports, name, getter) {
     if (!__webpack_require__.o(exports, name)) {
       Object.defineProperty(exports, name, { enumerable: true, get: getter });
