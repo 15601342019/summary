@@ -111,7 +111,7 @@ Function.prototype.myBind = function(context) {
 #### 那么如何改变this指向呢？
 ##### this 的指向
 在 ES5 中，其实 this 的指向，始终坚持一个原理：this 永远指向最后调用它的那个对象，来，跟着我朗读三遍：this 永远指向最后调用它的那个对象，this 永远指向最后调用它的那个对象，this 永远指向最后调用它的那个对象。记住这句话，this 你已经了解一半了。
-# 下面例子郑梦this 的指向并不是在创建的时候就可以确定的，在 es5 中，永远是this 永远指向最后调用它的那个对象。
+# 下面例子证明this 的指向并不是在创建的时候就可以确定的，在 es5 中，永远是this 永远指向最后调用它的那个对象。
 ```js
 
     var name = "windowsName";
