@@ -22,7 +22,7 @@ module.exports = {
         path: path.resolve('dist'),
     },
     devServer: {
-        contentBase: ['./public','./src','./assets'],
+        contentBase: ['./public','./src','./assets','./'],
         // compress: true,
         // hot: true,
         // open: true,  // 自动打开浏览器并访问服务器地址 为什么这里配置不生效，端口号也不行
