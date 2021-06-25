@@ -1,13 +1,18 @@
+```text
+JavaScript中变量提升一般是指在代码执行前将变量声明（var变量）或函数声明（function(){}）移动至其作用域最顶层的过程。
+```
 
-常见的声明提升
+## 常见的声明提升  
+
 ![Image text](https://github.com/emilia66/summary/blob/master/%E6%88%91%E7%9A%84%E9%9A%8F%E7%AC%94/images/10/1.jpg)
 
+### 常见的声明提升  
 
-常见的声明提升
+![Image text](https://github.com/emilia66/summary/blob/master/%E6%88%91%E7%9A%84%E9%9A%8F%E7%AC%94/images/10/2.jpg)
 
-num变量是在声明（var num）之前被访问的，所以它被赋值为undefined。虽然函数function getPi(){return 3.14;}是被定义在最后面，但它是可以在声明的前面被调用的，所以被提升到了作用域的最顶层。这两个是最常规的生命提升的例子。
+num变量是在声明（var num）之前被访问的，所以它被赋值为undefined。虽然函数function getPi(){return 3.14; }是被定义在最后面，但它是可以在声明的前面被调用的，所以被提升到了作用域的最顶层。这两个是最常规的生命提升的例子。
 
-变量的生命周期
+### 变量的生命周期
 
 当引擎和变量一起起作用时，他们的生命周期包含以下三个阶段：（下面我用破案举例）
 
@@ -25,18 +30,17 @@ num变量是在声明（var num）之前被访问的，所以它被赋值为unde
 
 注：警察——引擎，嫌疑人——变量。
 
-
-
+![Image text](https://github.com/emilia66/summary/blob/master/%E6%88%91%E7%9A%84%E9%9A%8F%E7%AC%94/images/10/3.jpg)
 
 变量的生命周期
 
 注意，变量生命周期中的声明阶段和我们通常所说的变量声明是不同的。简单来说，引擎处理变量声明需要经历三个步骤：注册，初始化，赋值。
 
-var变量的生命周期
-
-
+### var变量的生命周期
 
 var变量的生命周期
+
+![Image text](https://github.com/emilia66/summary/blob/master/%E6%88%91%E7%9A%84%E9%9A%8F%E7%AC%94/images/10/4.jpg)
 
 假如有一个里面包含var variable声明的函数作用域开始执行，在函数作用域中的任一声明执行之前里面的变量会在作用域的最顶层注册后立刻初始化。
 
@@ -50,33 +54,23 @@ var变量的生命周期
 
 下面这个例子创建了一个包含var变量的函数作用域：
 
+![Image text](https://github.com/emilia66/summary/blob/master/%E6%88%91%E7%9A%84%E9%9A%8F%E7%AC%94/images/10/5.jpg)
 
+### 函数声明的生命周期
 
-
-
-
-函数声明的生命周期
-
-
-
-
+![Image text](https://github.com/emilia66/summary/blob/master/%E6%88%91%E7%9A%84%E9%9A%8F%E7%AC%94/images/10/6.jpg)
 
 可以看出，在闭合的函数作用域中，注册/初始化和赋值这三个阶段仅仅用了一步就一次性全部执行完毕，函数已经不依赖于声明它的位置了，它可以在作用域的任何地方被调用。
 
-let变量的生命周期
+### let变量的生命周期
+
 let变量的处理不同于var变量，主要区别是它的注册和声明是分开进行的。
 
-
-
+![Image text](https://github.com/emilia66/summary/blob/master/%E6%88%91%E7%9A%84%E9%9A%8F%E7%AC%94/images/10/7.jpg)
 
 let变量的生命周期
 
 let变量在声明之前调用时会报错的。例：
-
-
-
-
-
 
 const和class方式除了只能赋值一次外，生命周期和let变量相同。
 
@@ -91,8 +85,8 @@ const和class方式除了只能赋值一次外，生命周期和let变量相同�
 
 以下建议可以让你优雅的使用变量声明：
 
-1.先注册，再初始化，然后使用变量，这个流程是正确的并且容易遵循。
+1. 先注册，再初始化，然后使用变量，这个流程是正确的并且容易遵循。
 
-2.尽可能的隐藏变量，越少的变量暴露，你的代码就越趋向于模块化。
+2. 尽可能的隐藏变量，越少的变量暴露，你的代码就越趋向于模块化。
 
 参考文章：https://zhuanlan.zhihu.com/p/47038506
