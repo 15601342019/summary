@@ -1,6 +1,6 @@
 
 常见的声明提升
-
+![Image text](https://github.com/emilia66/summary/blob/master/%E6%88%91%E7%9A%84%E9%9A%8F%E7%AC%94/images/10/1.jpg)
 
 
 常见的声明提升
