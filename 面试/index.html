@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        const data1 = [{
+                name: '中国',
+                children: [{
+                        name: '教第三节课',
+                    },
+                    {
+                        name: '教呼呼',
+                        children: [{
+                            name: '大一',
+                            children: [{
+                                    name: '课程1',
+                                    children: [{
+                                            name: '1231'
+                                        },
+                                        {
+                                            name: '121'
+                                        }
+                                    ]
+                                },
+                                {
+                                    name: '课程3',
+                                    children: [{
+                                        name: '1233'
+                                    }, ]
+                                },
+                            ]
+                        }]
+                    },
+                    {
+                        name: '活动',
+                        children: null
+                    }
+                ]
+            },
+            {
+                name: '菜单'
+            }
+        ];
+
+        // 使用递归
+        function getNames(arr, res = []) {
+            return arr.reduce((resArr, {
+                name,
+                children = []
+            }) => {
+                resArr = [...resArr, name]
+                if (children?.length) {
+                    return getNames(children, resArr)
+                }
+                return resArr
+            }, res)
+        }
+        const bb = getNames(data1, []);
+        console.log(bb)
+
+        // 使用非递归
+        function getNames2(arr) {
+
+        }
+        // getNames2(data1);
+
+
+
+        function getDiffence(arr1, arr2) {
+            // 获取公共元素
+            const temArr = arr1.filter((item) => {
+                return arr2.includes(item)
+            })
+            // 去除arr1中的公共元素
+            const arr1Temp = arr1.filter(item => !temArr.includes(item))
+            // 去除arr2中的公共元素
+            const arr2Temp = arr2.filter(item => !temArr.includes(item))
+            console.log(arr1Temp.concat(arr2Temp));
+            return arr1Temp.concat(arr2Temp)
+        }
+
+        const obj = {
+            foo: '1',
+            nested: {
+                child: {
+                    withArray: [{
+                        grandChild: ['hello']
+                    }]
+                }
+            }
+        };
+        const deepMapKeys = (obj, fn) => {
+            // coding
+            return Object.entries(obj).reduce((resObj, [key, value], idx) => {
+                const objkey = fn(key)
+                if (Object.keys(value)?.length) {
+                    return deepMapKeys(value, fn)
+                }
+                return (
+                    Object.assign(resObj, {
+                        [objkey]: value
+                    })
+                )
+            }, {})
+        }
+
+        const upperKeysObj = deepMapKeys(obj, key => key.toUpperCase());
+        console.log(upperKeysObj)
+    </script>
+</body>
+
+</html>

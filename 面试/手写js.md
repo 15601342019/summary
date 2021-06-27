@@ -267,6 +267,17 @@ upperKeysObj 输出结果如下：
 */
 const deepMapKeys = (obj, fn) => {
     // coding
+    Object.entries(obj).reduce((resObj, [key, value], idx) => {
+        const key = fn(key)
+        if (Object.propotype.toString.call(value) === '[object object]') {
+            deepMapKeys(value, fn)
+        }
+        return (
+            Object.assign(resObj, {
+                key: value
+            })
+        )
+    }, {})
 }
 
 //-----------------------------题目 12--------------------------------
@@ -281,6 +292,14 @@ function twoSumTest() {
 }
 
 function twoSum(nums, target) {
-    // coding
+    for (var idx in nums) {
+        for (var innerIdx in nums) {
+            if (innerIdx > idx) {
+                if (nums[idx] + nums[innerIdx] === target) {
+                    retrun[idx, innerIdx]
+                }
+            }
+        }
+    }
 }
 ```
