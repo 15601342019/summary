@@ -5,11 +5,36 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>手写代码</title>
 </head>
 
 <body>
+    <div id="parent">
+        <div id="child">
+            1111
+            <button id="button">点击</button>
+        </div>
+    </div>
     <script>
+        function onclickParent() {
+            alert('parent')
+        }
+
+        function onclickChild() {
+            console.log(1);
+            // e.stopPropagation();
+            alert('onclickChild')
+        }
+
+        function sayHello(e) {
+            // e.stopPropagation()
+            return false;
+            alert('hello')
+        }
+        // 事件的捕获目标和冒泡
+        document.getElementById("parent").addEventListener('click', onclickParent)
+        document.getElementById("child").addEventListener('click', onclickChild)
+        document.getElementById("button").addEventListener('click', sayHello)
         const data1 = [{
                 name: '中国',
                 children: [{
@@ -56,7 +81,7 @@
                 children = []
             }) => {
                 resArr = [...resArr, name]
-                if (children?.length) {
+                if (children ?.length) {
                     return getNames(children, resArr)
                 }
                 return resArr
@@ -96,24 +121,137 @@
                 }
             }
         };
-        const deepMapKeys = (obj, fn) => {
-            // coding
-            return Object.entries(obj).reduce((resObj, [key, value], idx) => {
-                const objkey = fn(key)
-                if (Object.keys(value)?.length) {
-                    return deepMapKeys(value, fn)
-                }
-                return (
-                    Object.assign(resObj, {
-                        [objkey]: value
-                    })
-                )
-            }, {})
-        }
+        // const deepMapKeys = (obj, fn) => {
+        //     // coding
+        //     return Object.entries(obj).reduce((resObj, [key, value], idx) => {
+        //         const objkey = fn(key)
+        //         if (Object.keys(value)?.length) {
+        //             return deepMapKeys(value, fn)
+        //         }
+        //         return (
+        //             Object.assign(resObj, {
+        //                 [objkey]: value
+        //             })
+        //         )
+        //     }, {})
+        // }
 
-        const upperKeysObj = deepMapKeys(obj, key => key.toUpperCase());
-        console.log(upperKeysObj)
+        // const upperKeysObj = deepMapKeys(obj, key => key.toUpperCase());
+        // console.log(upperKeysObj)
+
+
+
+
+        function jsonStringify(data) {
+            let type = typeof data;
+            // 基本数据类型判断
+            if (type !== 'object') {
+                let result = data;
+                //data 可能是基础数据类型的情况在这里处理
+                if (Number.isNaN(data) || data === Infinity) {
+                    //NaN 和 Infinity 序列化返回 "null"
+                    result = "null";
+                } else if (['undefined', 'symbol', 'function'].includes(typeof data)) {
+                    // 由于 function 序列化返回 undefined，因此和 undefined、symbol 一起处理
+                    return undefined
+                } else if (typeof data === 'string') {
+                    result = `"${data}"`
+                } else if (typeof data === 'number') {
+                    result = `${data}`
+                }
+                return result
+                // objcet数据类型判断
+            } else if (type === 'object') {
+                if (data === null) {
+                    return 'null'
+                    // 判断时间类型
+                } else if (data.toJSON && typeof data.toJSON === 'function') {
+                    return jsonStringify(data.toJSON());
+                } else if (Array.isArray(data)) {
+                    let result = [];
+                    //如果是数组，那么数组里面的每一项类型又有可能是多样的
+                    data.forEach((item, index) => {
+                        result[index] = jsonStringify(item);
+                    })
+                    return `[${result}]`
+                } else {
+                    let result = [];
+                    Object.keys(data).forEach((item, index) => {
+                        //key 如果是 symbol 对象，忽略
+                        if (typeof item !== 'symbol') {
+                            if (!(['undefined', 'symbol', 'function'].includes(typeof data[item]))) {
+                                result.push(`\"${item}\":${jsonStringify(data[item])}`)
+                            }
+                        }
+                    })
+                    return `{${result}}`
+                }
+            }
+
+        }
+        // jsonStringfy测试
+        let nl = null;
+        console.log(jsonStringify(nl) === JSON.stringify(nl));
+        // true
+        let und = undefined;
+        console.log(jsonStringify(undefined), JSON.stringify(undefined), jsonStringify(undefined) === JSON.stringify(
+            undefined));
+        // true
+        let boo = false;
+        console.log(jsonStringify(boo) === JSON.stringify(boo));
+        // true
+        let nan = NaN;
+        console.log(jsonStringify(nan) === JSON.stringify(nan));
+        // true
+        let inf = Infinity;
+        console.log(jsonStringify(Infinity) === JSON.stringify(Infinity));
+        // true
+        let str = "jack";
+        console.log(jsonStringify(str), JSON.stringify(str), jsonStringify(str) === JSON.stringify(str));
+        // true
+        let num = 123;
+        console.log(jsonStringify(num), JSON.stringify(num), jsonStringify(num) === JSON.stringify(num));
+        // true
+        let reg = new RegExp("\w");
+        console.log(jsonStringify(reg) === JSON.stringify(reg));
+        // true
+        let date = new Date();
+        console.log(jsonStringify(date) === JSON.stringify(date));
+        // true
+        let sym = Symbol(1);
+        console.log(jsonStringify(sym) === JSON.stringify(sym));
+        // true
+        let array = [1, 2, 3];
+        console.log(jsonStringify(array) === JSON.stringify(array));
+        // true
+        let obj1 = {
+            name: 'jack',
+            age: 18,
+            attr: ['coding', 123],
+            date: new Date(),
+            uni: Symbol(2),
+            sayHi: function () {
+                console.log("hi")
+            },
+            info: {
+                sister: 'lily',
+                age: 16,
+                intro: {
+                    money: undefined,
+                    job: null
+                }
+            }
+        }
+        console.log('jsonStringify(obj1)========>', jsonStringify(obj1), 'JSON.stringify(obj1)=======>', JSON.stringify(
+            obj1), jsonStringify(obj1) === JSON.stringify(obj1));
+        console.time()
+        var str1 = '';
+        for (var i = 0; i < 10000000; i++) {
+            str1 += i
+        }
+        console.timeEnd()
     </script>
+    <div>222</div>
 </body>
 
 </html>
