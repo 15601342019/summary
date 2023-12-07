@@ -34,6 +34,7 @@ useEffect能明显看到页面中ui的变化
 
 参考链接：[react18的useEffect 和 useLayoutEffect 的执行差异](https://www.bilibili.com/video/BV12P4y1i7k4/?spm_id_from=333.880.my_history.page.click&vd_source=25e17efcafcf4600b4265283cbc82a85)
 
-附：![react生命周期图谱](https://github.com/emilia66/summary/blob/master/%E6%88%91%E7%9A%84%E9%9A%8F%E7%AC%94/REACT/images/1/react18lifeCycle.png)
+附：react生命周期图谱
+![Image text](https://github.com/emilia66/summary/blob/master/%E6%88%91%E7%9A%84%E9%9A%8F%E7%AC%94/REACT/images/1/react18lifeCycle.png)
 
 
