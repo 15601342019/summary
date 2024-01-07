@@ -1,3 +1,10 @@
+/*
+ * @Description: 
+ * @Author: jialr3 jialr3@lenovo.com
+ * @Date: 2024-01-07 12:58:26
+ * @LastEditTime: 2024-01-07 15:55:15
+ * @LastEditors: jialr3 jialr3@lenovo.com
+ */
 // 高阶函数-函数作为参数
 
 function forEach (array, fn) {
@@ -15,7 +22,7 @@ function forEach (array, fn) {
 
 
 // filter
-function filter (array, fn) {
+function filter(array, fn) {
   let results = []
   for (let i = 0; i < array.length; i++) {
     if (fn(array[i])) {
