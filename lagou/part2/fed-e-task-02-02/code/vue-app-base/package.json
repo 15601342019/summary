@@ -9,7 +9,7 @@
     "start": "webpack-dev-server --open --inline"
   },
   "dependencies": {
-    "vue": "^2.6.14"
+    "vue": "^3.5.12"
   },
   "devDependencies": {
     "@babel/core": "^7.14.5",
